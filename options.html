@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html x-ng-app="awsConsoleModApp">
+<head>
+  <meta charset="utf-8">
+  <title>Customize AWS Console Header Setting</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/colorpicker.min.css">
+  <link rel="stylesheet" href="css/extension.css">
+
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src="js/sortable.min.js"></script>
+  <script type="text/javascript" src="js/ui-bootstrap-tpls-2.1.3.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap-colorpicker-module.min.js"></script>  
+  <script type="text/javascript" src="js/options.js"></script>
+</head>
+<body class="extension" x-ng-controller="appCtrl" ng-init="loadSetting()">
+<!--
+--> 
+  <div class="bg-primary">
+    <h1 style="margin: 0em 1em;">Customize AWS Console Header Setting</h1>
+  </div>
+
+  <div style="margin: 1em">
+    <div class="pull-right">
+      <button class="btn btn-xs btn-success" ng-click="enableAll()">{{ "EnableAll" | translate }}</button>
+      <button class="btn btn-xs btn-warning" ng-click="disableAll()">{{ "DisableAll" | translate }}</button>
+  </div>
+
+    <h3>{{ "RuleList" | translate }}</h3>
+
+    <table class="table table-bordered table-condensed">
+      <thead>
+        <tr class="bg-info">
+          <th class=" text-center" style="_width:1.5em;">
+            <i class="glyphicon glyphicon-sort"></i>
+        </th> 
+          <th class="col-md-2">{{ "Label" | translate }}</th>
+          <th class="col-md-2">{{ "AccountName" | translate }}</th>
+          <th class="col-md-3">{{ "Region" | translate }}</th>
+          <th class="col-md-2">{{ "HeaderColor" | translate }}</th>
+          <th class="">{{ "Operations" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody ui-sortable="sortableOptions" ng-model="ruleList">
+        <tr ng-repeat="rule in ruleList track by $index" ng-class="{ disable_rule: !rule.enableRule }">
+          <td class="row-drag-cursor text-center" style="_width:1.5em;" data-js="drag_handle">
+              <div style="vertical-align: middle;">
+                    <i class="glyphicon glyphicon-menu-hamburger"></i>
+              </div>
+          </td>
+          <td><input type="text" class="form-control input-sm" ng-model="rule.label" placeholder="label"/></td>
+          <td><input type="text" class="form-control input-sm" ng-model="rule.user" title="{{ 'TOOLTIP_AccountName' | translate }}"/></td>
+          <td>
+            <select ng-options="region.value as region.label for region in regions" class="form-control input-sm" ng-model="rule.region">
+            </select>
+          </td>
+          <td>
+            <input colorpicker="hex" type="text" ng-model="rule.color" class="form-control input-sm color_picker" ng-style="{background:rule.color}" />
+          </td>
+          <td>
+            <button class="btn btn-sm" title="show label" ng-class="{ 'btn-success' : rule.showLabel }" ng-click="rule.showLabel = !rule.showLabel">
+              <i class="glyphicon glyphicon-tag"></i>
+            </button>
+            <button class="btn btn-sm" title="disable rule" ng-class="{ 'btn-warning' : !rule.enableRule }" ng-click="rule.enableRule = !rule.enableRule">
+              <i class="glyphicon glyphicon-pause"></i>
+            </button>
+            <button class="btn btn-sm btn-info" ng-click="copyRule($index)" title="copy rule">
+                <i class="glyphicon glyphicon-duplicate"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" ng-click="removeRule($index)" title="remove rule">
+              <i class="glyphicon glyphicon-trash"></i>
+            </button>
+          </td>
+        </tr>
+        <tr class="bg-default">
+          <td></td>
+          <td colspan="5">
+            <button class="btn btn-sm btn-info" ng-click="addRule()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;{{ "AddRule" | translate }}</button>
+            <button class="btn btn-sm btn-primary" ng-click="apply()"><i class="glyphicon glyphicon-save"></i>&nbsp;{{ "Apply" | translate }}</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+#ruleLabel {
+    _position: absolute;
+    position: fixed;
+    top:  4px;
+    left: 4px;
+    background-color: white;
+    color:black;
+    opacity:0.7;
+    font-size:15px;
+    padding: 4px 10px;
+    z-index: 999;
+    font-weight:700;
+    border-radius: 5px;
+    pointer-events: none;
+}
+body.extension {
+    margin: 10px;
+    background-color: #FFFFFF;
+}
+
+.disable_rule {
+    background-color: lightslategray;
+}
+
+.color_picker {
+    color: white;
+}
+
+.row-drag-cursor {
+    cursor: ns-resize;
+  }

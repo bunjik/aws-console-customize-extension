@@ -1,0 +1,35 @@
+{
+    "_ext_name": { "message": "AWSコンソールのヘッダをカスタマイズ" },
+    "ext_description": { "message": "AWSコンソールのヘッダをカスタマイズする. アカウント名とリージョンの組み合わせ毎にカスタマイズのルールを設定できます." },
+
+    "Label": { "message": "ラベル" },
+    "AccountName": { "message": "アカウント名" },
+    "Region": { "message": "リージョン" },
+    "HeaderColor": { "message": "ヘッダ色" },
+    "Operations": { "message": "操作" },
+    "EnableAll": { "message": "すべて有効" },
+    "DisableAll": { "message": "すべて無効" },
+    "AddRule": { "message":  "ルール追加" },
+    "Apply": { "message": "保存" },
+
+    "TOOLTIP_AccountName": { "message": "アカウント名の部分一致(or 正規表現)" },
+
+    "all_region": { "message": "全リージョン" },
+    "us_east_1": { "message": "米国東部（バージニア北部）" },
+    "us_east_2": { "message": "米国東部 (オハイオ)" },
+    "us_west_1": { "message": "米国西部 (北カリフォルニア)" },
+    "us_west_2": { "message": "米国西部 (オレゴン)" },
+    "ap_east_1": { "message": "アジアパシフィック (香港)" },
+    "ap_south_1": { "message": "アジアパシフィック (ムンバイ)" },
+    "ap_northeast_2": { "message": "アジアパシフィック (ソウル)" },
+    "ap_southeast_1": { "message": "アジアパシフィック (シンガポール)" },
+    "ap_southeast_2": { "message": "アジアパシフィック (シドニー)" },
+    "ap_northeast_1": { "message": "アジアパシフィック (東京)" },
+    "ca_central_1": { "message": "カナダ (中部)" },
+    "eu_central_1": { "message": "EU (フランクフルト)" },
+    "eu_west_1": { "message": "EU (アイルランド)" },
+    "eu_west_2": { "message": "EU (ロンドン)" },
+    "eu_west_3": { "message": "EU (パリ)" },
+    "eu_north_1": { "message": "EU (ストックホルム)" },
+    "sa_east_1": { "message": "南米 (サンパウロ)" } 
+}

@@ -1,0 +1,19 @@
+{
+    "ext_name": { "message": "Customize AWS Console Header" },
+    "_ext_description": { "message": "Change AWS Console Header. background color and text label." },
+
+    "RuleList": { "message": "Rule List" },
+    "Label": { "message": "Label" },
+    "AccountName": { "message": "AccountName" },
+    "Region": { "message": "Region" },
+    "HeaderColor": { "message": "Header Color" },
+    "Operations": { "message": "Operations" },
+    "EnableAll": { "message": "Enable All" },
+    "DisableAll": { "message": "Disable All" },
+    "AddRule": { "message":  "Add Rule" },
+    "Apply": { "message": "apply" },
+
+    "TOOLTIP_AccountName": { "message": "AccountName(regex:OK)" },
+
+    "DUMMY": { "message": "dummy" }
+}
