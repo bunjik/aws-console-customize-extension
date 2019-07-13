@@ -1,5 +1,5 @@
 {
-    "_ext_name": { "message": "AWSコンソールのヘッダをカスタマイズ" },
+    "ext_name": { "message": "Customize AWS Console Header" },
     "ext_description": { "message": "AWSコンソールのヘッダをカスタマイズする. アカウント名とリージョンの組み合わせ毎にカスタマイズのルールを設定できます." },
 
     "Label": { "message": "ラベル" },

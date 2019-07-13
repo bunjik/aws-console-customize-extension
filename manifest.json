@@ -16,7 +16,8 @@
     "storage"
   ],
   "icons" : {
-    "48": "img/icon48.png"
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
   }
 
 }

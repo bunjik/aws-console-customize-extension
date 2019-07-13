@@ -51,7 +51,7 @@
               </div>
           </td>
           <td><input type="text" class="form-control input-sm" ng-model="rule.label" placeholder="label"/></td>
-          <td><input type="text" class="form-control input-sm" ng-model="rule.user" title="{{ 'TOOLTIP_AccountName' | translate }}"/></td>
+          <td><input type="text" class="form-control input-sm" ng-model="rule.user" placeholder="*" title="{{ 'TOOLTIP_AccountName' | translate }}"/></td>
           <td>
             <select ng-options="region.value as region.label for region in regions" class="form-control input-sm" ng-model="rule.region">
             </select>

@@ -1,6 +1,6 @@
 {
     "ext_name": { "message": "Customize AWS Console Header" },
-    "_ext_description": { "message": "Change AWS Console Header. background color and text label." },
+    "ext_description": { "message": "Change AWS Console Header. background color and text label." },
 
     "RuleList": { "message": "Rule List" },
     "Label": { "message": "Label" },
