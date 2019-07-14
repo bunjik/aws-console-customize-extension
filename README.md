@@ -1,2 +1,2 @@
-# aws-console-customize-extention
+# aws-console-customize-extension
 customize aws console chrome-extension
