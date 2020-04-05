@@ -1,10 +1,16 @@
 /**
+ * AWS Console Customize Extension
  * Created by fumiharu kinoshita
  */
 $(function() {
     // get username & region
     var name = $("#nav-usernameMenu").text();
-    var region = location.search.match(/region=(.*?)(&|$)/)[1]
+    //var region = location.search.match(/region=(.*?)(&|$)/)[1];
+    var regions = location.search.match(/region=(.*?)(&|$)/);
+    var region = "";
+    if (regions != null && regions.length > 1) {
+        region = regions[1];
+    }
 
     // show/hide label
     $('#consoleNavHeader').hover(

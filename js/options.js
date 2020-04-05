@@ -1,5 +1,6 @@
 var app = angular.module('awsConsoleModApp', ['ui.bootstrap', 'ui.sortable', 'colorpicker.module']);
 
+// translate filter
 app.filter('translate', function() {
     return function(key) {
         var res = chrome.i18n.getMessage(key.replace(/-/g, '_'));
@@ -7,13 +8,12 @@ app.filter('translate', function() {
     }
 });
 
-app.controller('appCtrl', ['$scope', '$filter', /*'$translate',*/ function ($scope, $filter) {
+app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
 
-    var DEFAuLT_COLOR = "#232f3e";
+    var DEFAULT_COLOR = "#232f3e";
 
-    // region list (not support multi lannguages)
+    // region list
     $scope.regions = [
-
         { value: "all-region", label: "All Region" },
         { value: "us-east-1", label: "US East (N. Virginia)" },
         { value: "us-east-2", label: "US East (Ohio)" },
@@ -41,9 +41,14 @@ app.controller('appCtrl', ['$scope', '$filter', /*'$translate',*/ function ($sco
 
     angular.forEach($scope.regions, region => region['label'] = $scope.translate(region.value));
 
-    var defaultRule = { label: "", user: "", region: "all-region", color: DEFAuLT_COLOR, enableRule: true, showLabel: true };
+    var defaultRule = { label: "", user: "", region: "all-region", color: DEFAULT_COLOR, enableRule: true, showLabel: true };
+
+    $scope.previewRule = defaultRule;
 
     $scope.ruleList = [];
+
+    //$scope.orgRulelist = [];
+    //$scope.prevIdx = -99;
 
     $scope.loadSetting = function() {
         //console.log("loadSetting...");
@@ -53,9 +58,13 @@ app.controller('appCtrl', ['$scope', '$filter', /*'$translate',*/ function ($sco
            if ($scope.ruleList.length == 0) {
                 $scope.ruleList.push(angular.copy(defaultRule));
            }
-           console.log('Value currently is ', result.awsconsole);
+           //$scope.orgRulelist = angular.copy($scope.ruleList);
            $scope.$applyAsync();
         });
+    }
+
+    // check modified rule
+    $scope.checkModified = function() { 
     }
 
     // add rule.
@@ -66,6 +75,7 @@ app.controller('appCtrl', ['$scope', '$filter', /*'$translate',*/ function ($sco
     // remove rule.
     $scope.removeRule = function (index) {
         $scope.ruleList.splice(index, 1);
+        $scope.previewRule = defaultRule;
     }
 
     // copy rule.
@@ -83,6 +93,7 @@ app.controller('appCtrl', ['$scope', '$filter', /*'$translate',*/ function ($sco
         $scope.ruleList.forEach(rule => rule.enableRule = false);
     }
 
+    // save rule.
     $scope.apply = function() {
        chrome.storage.sync.set({ awsconsole: angular.copy($scope.ruleList) }, function() {
         });
@@ -91,5 +102,18 @@ app.controller('appCtrl', ['$scope', '$filter', /*'$translate',*/ function ($sco
     $scope.sortableOptions = {
         'handle' : '[data-js=drag_handle]',
         'axis '  : 'y',
+    }
+
+    $scope.preview = function(idx) {
+        if ($scope.ruleList.length > 0 && idx >= 0) {
+            $scope.previewRule = $scope.ruleList[idx];
+        } else {
+            $scope.previewRule = defaultRule;
+        }
+        // check modified
+        //if (idx != $scope.prevIdx) {
+        //    console.log("check modify. [" + idx + "]");
+        //    $scope.prevIdx = idx;
+        //}
     }
 }]);

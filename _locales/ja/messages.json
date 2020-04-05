@@ -11,6 +11,7 @@
     "DisableAll": { "message": "すべて無効" },
     "AddRule": { "message":  "ルール追加" },
     "Apply": { "message": "保存" },
+    "Preview": { "message": "プレビュー" },
 
     "TOOLTIP_AccountName": { "message": "アカウント名の部分一致(or 正規表現)" },
 
