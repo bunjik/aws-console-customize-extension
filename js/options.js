@@ -1,5 +1,20 @@
 var app = angular.module('awsConsoleModApp', ['ui.bootstrap', 'ui.sortable', 'colorpicker.module']);
 
+//directive
+app.directive('fileModel',function($parse){
+    return{
+        restrict: 'A',
+        link: function(scope,element,attrs) {
+            var model = $parse(attrs.fileModel);
+            element.bind('change',function(){
+                scope.$apply(function(){
+                    model.assign(scope,element[0].files[0]);
+                });
+            });
+        }
+    };
+});
+
 // translate filter
 app.filter('translate', function() {
     return function(key) {
@@ -95,14 +110,43 @@ app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
 
     // save rule.
     $scope.apply = function() {
-       chrome.storage.sync.set({ awsconsole: angular.copy($scope.ruleList) }, function() {
+        chrome.storage.sync.set({ awsconsole: angular.copy($scope.ruleList) }, function() {
         });
     }
 
-    $scope.sortableOptions = {
-        'handle' : '[data-js=drag_handle]',
-        'axis '  : 'y',
+    // export rule.
+    $scope.exportRule = function() {
+        var resultJson = JSON.stringify($scope.ruleList, null, 2);
+        var downLoadLink = document.createElement("a");
+        downLoadLink.download = formatDate(new Date(), "yyyyMMdd-HHmm_export.json");
+        downLoadLink.href = URL.createObjectURL(new Blob([resultJson], {type: "application/json"}));
+        downLoadLink.dataset.downloadurl = ["application/json", downLoadLink.download, downLoadLink.href].join(":");
+        downLoadLink.click();
     }
+
+    // import rule.
+    $scope.importRule = function() {
+        // open file dialog
+        document.getElementById("importFile").click();
+    }
+
+    $scope.$watch('importFile', function(file) {
+        if (file != undefined) {
+            // import rules
+            var reader = new FileReader();
+            reader.onload = function() {
+                // handle parse error
+                var rules = JSON.parse(reader.result);
+                if (Array.isArray(rules)) {
+                    // TODO validate format
+                    rules.forEach(rule => $scope.ruleList.push(rule));
+                    $scope.importFile = undefined;
+                    $scope.$applyAsync();
+                }
+            }
+            reader.readAsText(file);
+        }
+    });
 
     $scope.preview = function(idx) {
         if ($scope.ruleList.length > 0 && idx >= 0) {
@@ -116,4 +160,21 @@ app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
         //    $scope.prevIdx = idx;
         //}
     }
+    
+    $scope.sortableOptions = {
+        'handle' : '[data-js=drag_handle]',
+        'axis '  : 'y',
+    }
+
+    // format date
+    function formatDate (date, format) {
+        format = format.replace(/yyyy/g, date.getFullYear());
+        format = format.replace(/MM/g, ('0' + (date.getMonth() + 1)).slice(-2));
+        format = format.replace(/dd/g, ('0' + date.getDate()).slice(-2));
+        format = format.replace(/HH/g, ('0' + date.getHours()).slice(-2));
+        format = format.replace(/mm/g, ('0' + date.getMinutes()).slice(-2));
+        format = format.replace(/ss/g, ('0' + date.getSeconds()).slice(-2));
+        format = format.replace(/SSS/g, ('00' + date.getMilliseconds()).slice(-3));
+        return format;
+      };
 }]);

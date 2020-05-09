@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/colorpicker.min.css">
   <link rel="stylesheet" href="css/extension.css">
-
+                                
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui.min.js"></script>
   <script type="text/javascript" src="js/angular.min.js"></script>
@@ -34,13 +34,23 @@
 <body class="extension" x-ng-controller="appCtrl" ng-init="loadSetting()">
 
   <div class="bg-primary">
+    ?dev>
     <h1 style="margin: 0em 1em;">Customize AWS Console Header Setting</h1>
+    <div class="pull-right">
+    </div>
   </div>
 
   <div style="margin: 1em">
     <div class="pull-right">
-      <button class="btn btn-xs btn-success" ng-click="enableAll()">{{ "EnableAll" | translate }}</button>
-      <button class="btn btn-xs btn-warning" ng-click="disableAll()">{{ "DisableAll" | translate }}</button>
+      <button class="btn btn-sm btn-info" ng-click="addRule()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;{{ "AddRule" | translate }}</button>
+      <button class="btn btn-sm btn-primary" ng-click="apply()"><i class="glyphicon glyphicon-save"></i>&nbsp;{{ "Apply" | translate }}</button>
+      &nbsp;
+      <button class="btn btn-sm btn-success" ng-click="exportRule()" ng-disabled="ruleList.length > 999"><i class="glyphicon glyphicon-export"></i>&nbsp;{{ "Export" | translate }}</button>
+      <div style="display: inline-block;">
+        <input type="file" id="importFile" file-model="importFile" style="display:none;" accept="application/json"/>
+        <button class="btn btn-sm btn-warning" ng-click="importRule()"><i class="glyphicon glyphicon-import"></i>&nbsp;{{ "Import" | translate }}</button>
+      </div>
+
     </div>
 
     <h3>{{ "RuleList" | translate }}</h3>
@@ -60,7 +70,7 @@
       </thead>
       <tbody ui-sortable="sortableOptions" ng-model="ruleList">
         <tr ng-repeat="rule in ruleList track by $index" ng-class="{ disable_rule: !rule.enableRule }" ng-mouseover="preview($index)" ng-mouseleave="preview(-1)">
-          <td class="row-drag-cursor text-center" style="_width:1.5em;" data-js="drag_handle">
+          <td class="row-drag-cursor text-center" style="vertical-align: middle;" data-js="drag_handle">
               <div style="vertical-align: middle;">
                     <i class="glyphicon glyphicon-menu-hamburger"></i>
               </div>
@@ -87,13 +97,6 @@
             <button class="btn btn-sm btn-danger" ng-click="removeRule($index);" title="remove rule">
               <i class="glyphicon glyphicon-trash"></i>
             </button>
-          </td>
-        </tr>
-        <tr class="bg-default" style="height:6em;">
-          <td class="hidden-border"></td>
-          <td colspan="5" class="hidden-border">
-            <button class="btn btn-sm btn-info" ng-click="addRule()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;{{ "AddRule" | translate }}</button>
-            <button class="btn btn-sm btn-primary" ng-click="apply()"><i class="glyphicon glyphicon-save"></i>&nbsp;{{ "Apply" | translate }}</button>
           </td>
         </tr>
       </tbody>
