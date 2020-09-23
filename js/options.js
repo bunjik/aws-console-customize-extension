@@ -34,6 +34,7 @@ app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
         { value: "us-east-2", label: "US East (Ohio)" },
         { value: "us-west-1", label: "US West (N. California)" },
         { value: "us-west-2", label: "US West (Oregon)" },
+        { value: "af-south-1", label: "Africa (Cape Town)" },
         { value: "ap-east-1", label: "Asia Pacific (Hong Kong)" },
         { value: "ap-south-1", label: "Asia Pacific (Mumbai)" },
         { value: "ap-northeast-2", label: "Asia Pacific (Seoul)" },
@@ -46,6 +47,7 @@ app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
         { value: "eu-west-2", label: "EU (London)" },
         { value: "eu-west-3", label: "EU (Paris)" },
         { value: "eu-north-1", label: "EU (Stockholm)" },
+        { value: "me-south-1", label: "Middle East (Bahrain)" },
         { value: "sa-east-1", label: "South America (São Paulo)" }
     ];
 
