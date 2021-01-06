@@ -3,7 +3,7 @@
  * Created by fumiharu kinoshita
  */
 $(function() {
-    // get username & region
+    // get username, account number, region
 
     var nameElm = $("#nav-usernameMenu span:first span:first");
     //var nameElm = $(".ThRjn7o-KwO0459UzmvoU.w8Kxy2XztOAkWobGpdJLt span:first");
@@ -14,6 +14,9 @@ $(function() {
     var name = nameElm.text();
     //console.log(name);
 
+    var acctElm = $("span[data-testid='aws-my-account-details']");
+    var acct = acctElm.text();
+    
     var regions = location.search.match(/region=(.*?)(&|$)/);
     var region = "";
     if (regions != null && regions.length > 1) {
@@ -30,7 +33,7 @@ $(function() {
     chrome.storage.sync.get(['awsconsole'], function(ruleList) {
         ruleList.awsconsole.some(rule => { 
             var re = new RegExp(rule.user);
-            if (rule.enableRule && re.test(name)) {
+            if (rule.enableRule && (re.test(name) || re.test(acct))) {
                 if (region == rule.region || "all-region" == rule.region) {
                     // apply rule.
                     //console.log("matched. ", rule);
