@@ -12,6 +12,10 @@ $(function() {
         nameElm = $("#nav-usernameMenu");
     }
     var name = nameElm.text();
+    if (name.length == 0) {
+        // switch role
+        name = $("#nav-usernameMenu span:first span:eq(1)").text();
+    }
     //console.log(name);
 
     var regions = location.search.match(/region=(.*?)(&|$)/);
