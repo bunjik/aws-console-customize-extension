@@ -13,6 +13,10 @@ $(function() {
     }
     var name = nameElm.text();
     //console.log(name);
+    if (name.length == 0) {
+        // switch role
+        name = $("#nav-usernameMenu span:first span:eq(1)").text();
+    }
 
     var regions = location.search.match(/region=(.*?)(&|$)/);
     var region = "";
