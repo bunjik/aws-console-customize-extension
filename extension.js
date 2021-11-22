@@ -33,7 +33,7 @@ $(function() {
             if (rule.enableRule && re.test(name)) {
                 if (region == rule.region || "all-region" == rule.region) {
                     // apply rule.
-                    //console.log("matched. ", rule);
+
                     // for old layout
                     $('#nav-menubar').css('background-color', rule.color);
                     $('.nav-menu').css('background-color', rule.color);
@@ -41,10 +41,12 @@ $(function() {
                     $('#console-nav-footer').css('background-color', rule.color);
 
                     // for new layout
-                    //$('._2RLslneV9dNkchEUSPfzwC').css('background-color', rule.color);
                     $('#awsc-nav-header').css('background-color', rule.color);
                     $('#console-nav-footer-inner').css('background-color', rule.color);
 
+                    // update layout 2021-11-22
+                    $('.globalNav-0324').css('background-color', rule.color);
+                    
                     if (rule.showLabel && rule.label != null && rule.label.length > 0) {
                         $('body').prepend('<span id="ruleLabel">' + rule.label + '</span>');
                     }

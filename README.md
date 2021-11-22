@@ -1,6 +1,10 @@
 # aws-console-customize-extension
 customize aws console chrome-extension
 
+- Ver 1.0
+  - support AWS Management Console update.
+  - applying region changes.
+
 - Ver 0.4
   - update liblaries (issue #3)
     - jquery 3.6.0
