@@ -44,8 +44,9 @@ $(function() {
                     $('#awsc-nav-header').css('background-color', rule.color);
                     $('#console-nav-footer-inner').css('background-color', rule.color);
 
-                    // update layout 2021-11-22
-                    $('.globalNav-0324').css('background-color', rule.color);
+                    // update layout
+                    //$('.globalNav-0324').css('background-color', rule.color);
+                    $('header > nav').css('background-color', rule.color);
                     
                     if (rule.showLabel && rule.label != null && rule.label.length > 0) {
                         $('body').prepend('<span id="ruleLabel">' + rule.label + '</span>');

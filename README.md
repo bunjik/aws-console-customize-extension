@@ -1,6 +1,9 @@
 # aws-console-customize-extension
 customize aws console chrome-extension
 
+- Ver 1.0.1
+  - change header area detection.
+
 - Ver 1.0
   - support AWS Management Console update.
   - applying region changes.
