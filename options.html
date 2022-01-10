@@ -6,60 +6,55 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/colorpicker.min.css">
   <link rel="stylesheet" href="css/extension.css">
-                                
+
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui.min.js"></script>
   <script type="text/javascript" src="js/angular.min.js"></script>
   <script type="text/javascript" src="js/sortable.min.js"></script>
   <script type="text/javascript" src="js/ui-bootstrap-tpls-2.1.3.min.js"></script>
   <script type="text/javascript" src="js/bootstrap-colorpicker-module.min.js"></script>  
+  <script type="text/javascript" src="js/common.js"></script>
   <script type="text/javascript" src="js/options.js"></script>
-
-  <style>
-    #nav-logo {
-      position:relative;
-      margin-left: 60px;
-      margin-right: 38px;
-      width: 41px;
-      height: 40px;
-      background-image:url('data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDgwIDQ3Ij48c3R5bGU+LnN0MHtjbGlwLXBhdGg6dXJsKCNTVkdJRF8zXyk7fTwvc3R5bGU+PGRlZnM+PHBhdGggaWQ9IlNWR0lEXzFfIiBkPSJNNTkuMSAyMi44Yy43LjQgMS45LjkgMy4yIDEuMiAxLjMuMyAzLjUuNiA0LjkuNiAxLjQgMCAyLjYtLjIgMy44LS41IDEuMS0uMyAyLjEtLjggMy0xLjUuOC0uNiAxLjUtMS40IDEuOS0yLjMuNS0uOS43LTIuMS43LTMuMiAwLTEuNC0uNC0yLjYtMS4yLTMuNy0uOC0xLjEtMi4yLTEuOS00LjEtMi41bC0zLjgtMS4yYy0xLjQtLjUtMi40LS44LTIuOS0xLjNzLS44LTEuMS0uOC0xLjhjMC0xLjEuNC0xLjggMS4zLTIuMy44LS41IDItLjYgMy41LS42IDEuOSAwIDMuOS42IDUuNCAxLjMuNS4yLjguMyAxIC4zLjQgMCAuNi0uMy42LS44bC4xLTEuNWMwLS43LS40LTEuMy0uOS0xLjUtLjQtLjMtMS45LS44LTMuMS0xLjEtLjUtLjEtMS4xLS4yLTEuNy0uMy0uNi0uMS0xLjItLjEtMS44LS4xLTEuMiAwLTIuMy4xLTMuNC40LTEuMS4zLTIgLjgtMi44IDEuNC0uOC42LTEuNCAxLjMtMS45IDIuMi0uNS44LS43IDEuOC0uNyAyLjkgMCAxLjQuNCAyLjYgMS4zIDMuOC45IDEuMiAyLjMgMS45IDQuMyAyLjZsMy45IDEuMmMxLjMuNCAyLjIuOSAyLjcgMS40LjUuNS43IDEuMS43IDEuOCAwIDEuMS0uNSAxLjktMS40IDIuNS0uOS41LTIuMi44LTMuOS44LTEuMSAwLTQtLjQtNy4xLTEuNi0uMy0uMS0uNS0uMi0uNy0uMy0uMi0uMS0uMy0uMS0uNS0uMS0uNCAwLS42LjQtLjYuOXYxLjNjMCAuMi4xLjUuMi43LjEuNC40LjYuOC45em0tMjcuNi0uMmMuMi41LjMuOS42IDEgLjIuMi42LjMgMSAuM2gyLjNjLjUgMCAuOS0uMSAxLjEtLjMuMi0uMi40LS41LjUtMS4xbDQuMS0xNi44IDQuMSAxNi44Yy4xLjUuMy45LjUgMS4xLjIuMi42LjMgMS4xLjNoMi4zYy41IDAgLjgtLjEgMS0uMy4yLS4yLjQtLjUuNi0xbDYuNC0yMC4yYy4xLS4zLjItLjUuMi0uNnYtLjRjMC0uNC0uMi0uNi0uNy0uNmgtMi41Yy0uNSAwLS44LjEtMSAuMy0uMi4yLS40LjUtLjUgMUw0OCAxOS41IDQzLjggMmMtLjEtLjUtLjMtLjktLjUtMS0uMi0uMi0uNi0uMy0xLjEtLjNoLTIuMWMtLjUgMC0uOS4xLTEuMS4zLS4yLjItLjQuNS0uNSAxbC00LjEgMTcuM0wyOS45IDJjLS4yLS41LS4zLS45LS41LTEtLjItLjItLjYtLjMtMS0uM2gtMi42Yy0uNCAwLS43LjItLjcuNiAwIC4yLjEuNS4yIDEuMWw2LjIgMjAuMnpNMTUuMSAxMC40Yy0xLS4xLTEuOS0uMi0yLjgtLjItMi43IDAtNC45LjctNi41IDItMS42IDEuNC0yLjQgMy4yLTIuNCA1LjQgMCAyLjEuNyAzLjggMiA1IDEuMyAxLjMgMy4xIDEuOSA1LjMgMS45IDMuMSAwIDUuNy0xLjIgNy44LTMuNi4zLjYuNiAxLjEuOCAxLjUuMy40LjYuOCAxIDEuMi4yLjIuNS40LjguNC4yIDAgLjQtLjEuNy0uMmwxLjctMS4xYy4zLS4yLjUtLjUuNS0uOCAwLS4yLS4xLS40LS4yLS42LS40LS43LS43LTEuMy0uOS0xLjktLjItLjYtLjMtMS40LS4zLTIuM1Y4LjZjMC0yLjktLjctNS0yLjItNi40QzE4LjkuOCAxNi42LjEgMTMuNC4xYy0xLjUgMC0yLjguMi00LjEuNS0xLjQuMi0yLjUuNi0zLjQgMS4xLS40LjItLjYuNC0uOC41LS4xLjItLjIuNS0uMiAxdjEuM2MwIC41LjIuOC42LjguMSAwIC4yIDAgLjQtLjEuMiAwIC41LS4yLjktLjMgMS0uNCAxLjktLjcgMi45LS45IDEtLjIgMS45LS4zIDIuOS0uMyAyIDAgMy41LjQgNC4zIDEuMi44LjcgMS4zIDIuMSAxLjMgNC4xdjEuOWMtMS4xLS4yLTIuMS0uNC0zLjEtLjV6bTMuMSA0LjZjMCAuOS0uMSAxLjYtLjMgMi4zLS4yLjYtLjUgMS4yLS45IDEuNy0uNy44LTEuNiAxLjQtMi41IDEuNy0xIC4zLTEuOS41LTIuNy41LTEuMiAwLTIuMS0uMy0yLjgtLjktLjctLjYtMS0xLjUtMS0yLjggMC0xLjMuNC0yLjMgMS4zLTMgLjktLjcgMi4yLTEuMSA0LTEuMS44IDAgMS42LjEgMi41LjIuOS4xIDEuNy4zIDIuNC40djF6Ii8+PC9kZWZzPjxkZWZzPjxwYXRoIGlkPSJTVkdJRF8yXyIgZD0iTTcxIDM1LjNjLTkuOCA0LjEtMjAuNSA2LjEtMzAuMiA2LjEtMTQuNCAwLTI4LjMtMy45LTM5LjYtMTAuMy0xLS42LTEuNy40LS45IDEuMkMxMC44IDQxLjUgMjQuNiA0NyAzOS45IDQ3YzEwLjkgMCAyMy42LTMuNCAzMi40LTkuNyAxLjUtMSAuMi0yLjYtMS4zLTJ6bTguNy00LjljLTEtMS4yLTkuMi0yLjItMTQuMiAxLjMtLjguNS0uNiAxLjMuMiAxLjIgMi44LS4zIDkuMS0xLjEgMTAuMi4zIDEuMSAxLjQtMS4yIDcuMi0yLjMgOS44LS4zLjguNCAxLjEgMS4xLjUgNC43LTMuOCA2LTExLjkgNS0xMy4xeiIvPjwvZGVmcz48dXNlIHhsaW5rOmhyZWY9IiNTVkdJRF8xXyIgb3ZlcmZsb3c9InZpc2libGUiIGZpbGw9IiNGRkYiLz48dXNlIHhsaW5rOmhyZWY9IiNTVkdJRF8yXyIgb3ZlcmZsb3c9InZpc2libGUiIGZpbGw9IiNGODk5MUQiLz48Y2xpcFBhdGggaWQ9IlNWR0lEXzNfIj48dXNlIHhsaW5rOmhyZWY9IiNTVkdJRF8xXyIgb3ZlcmZsb3c9InZpc2libGUiLz48L2NsaXBQYXRoPjxjbGlwUGF0aCBpZD0iU1ZHSURfNF8iIGNsYXNzPSJzdDAiPjx1c2UgeGxpbms6aHJlZj0iI1NWR0lEXzJfIiBvdmVyZmxvdz0idmlzaWJsZSIvPjwvY2xpcFBhdGg+PC9zdmc+');
-      background-position:center;
-      background-size:contain;
-      text-indent: -9999em;
-      background-repeat: no-repeat;
-      float:  left;
-    }
-</style>
 </head>
 <body class="extension" x-ng-controller="appCtrl" ng-init="loadSetting()">
 
-  <div class="bg-primary">
-    <h1 style="margin: 0em 1em;">Customize AWS Console Header Setting</h1>
+  <div id="prev-navbar" ng-style="{ 'background-color': previewRule.color }" class="previewHeader" style="height: 32px; font-size: 20px;">
+    <div id="previewLabel" _ng-show="previewRule.showLabel && previewRule.label != null && previewRule.label.length">{{ previewRule.label }}</div>
+    <div id="nav-logo" style="display:inline-block"></div>&nbsp;
+    <svg style="display:inline-block" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect y="6" width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect y="12" width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect x="6" width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect x="6" y="6" width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect x="6" y="12" width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect x="12" width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect x="12" y="6" width="4" height="4" rx="1" fill="currentColor"></rect>
+      <rect x="12" y="12" width="4" height="4" rx="1" fill="currentColor"></rect>
+    </svg>
+    &nbsp;&nbsp;Customize AWS Console Header Setting
+  </div>
+
+  <div style="height: 40px; padding: .5em;">
     <div class="pull-right">
+      <button class="btn btn-xs btn-info" ng-click="addRule()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;{{ "AddRule" | translate }}</button>
+      <button class="btn btn-xs btn-primary" ng-click="apply()"><i class="glyphicon glyphicon-save"></i>&nbsp;{{ "Apply" | translate }}</button>
+      &nbsp;
+      <button class="btn btn-xs btn-success" ng-click="exportRule()" ng-disabled="ruleList.length > 999"><i class="glyphicon glyphicon-export"></i>&nbsp;{{ "Export" | translate }}</button>
+      <div style="display: inline-block;">
+        <input type="file" id="importFile" file-model="importFile" style="display:none;" accept="application/json"/>
+        <button class="btn btn-xs btn-warning" ng-click="importRule()"><i class="glyphicon glyphicon-import"></i>&nbsp;{{ "Import" | translate }}</button>
+      </div>
     </div>
   </div>
 
-  <div style="margin: 1em">
-    <div class="pull-right">
-      <button class="btn btn-sm btn-info" ng-click="addRule()"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;{{ "AddRule" | translate }}</button>
-      <button class="btn btn-sm btn-primary" ng-click="apply()"><i class="glyphicon glyphicon-save"></i>&nbsp;{{ "Apply" | translate }}</button>
-      &nbsp;
-      <button class="btn btn-sm btn-success" ng-click="exportRule()" ng-disabled="ruleList.length > 999"><i class="glyphicon glyphicon-export"></i>&nbsp;{{ "Export" | translate }}</button>
-      <div style="display: inline-block;">
-        <input type="file" id="importFile" file-model="importFile" style="display:none;" accept="application/json"/>
-        <button class="btn btn-sm btn-warning" ng-click="importRule()"><i class="glyphicon glyphicon-import"></i>&nbsp;{{ "Import" | translate }}</button>
-      </div>
-
-    </div>
-
-    <h3>{{ "RuleList" | translate }}</h3>
-
-    <table class="table table-bordered table-condensed">
+  <div style="height:calc(100vh - 72px); overflow-y: auto; padding: 0 0.5em 0.5em 0.5em">
+    <table class="table table-bordered table-condensed" style="_padding-bottom: 0em; _border-collapse:unset">
       <thead>
         <tr class="bg-info">
           <th class=" text-center" style="_width:1.5em;">
             <i class="glyphicon glyphicon-sort"></i>
-        </th> 
+          </th>
           <th class="col-md-2">{{ "Label" | translate }}</th>
           <th class="col-md-2">{{ "AccountName" | translate }}</th>
           <th class="col-md-3">{{ "Region" | translate }}</th>
@@ -68,17 +63,19 @@
         </tr>
       </thead>
       <tbody ui-sortable="sortableOptions" ng-model="ruleList">
-        <tr ng-repeat="rule in ruleList track by $index" ng-class="{ disable_rule: !rule.enableRule }" ng-mouseover="preview($index)" ng-mouseleave="preview(-1)">
+        <tr ng-repeat="rule in ruleList track by $index"
+            ng-class="{ disable_rule: !rule.enableRule }"
+            ng-mouseover="preview($index)"
+            ng-mouseleave="preview(-1)">
           <td class="row-drag-cursor text-center" style="vertical-align: middle;" data-js="drag_handle">
-              <div style="vertical-align: middle;">
-                    <i class="glyphicon glyphicon-menu-hamburger"></i>
-              </div>
+            <div style="vertical-align: middle;">
+              <i class="glyphicon glyphicon-menu-hamburger"></i>
+            </div>
           </td>
           <td><input type="text" class="form-control input-sm" ng-model="rule.label" placeholder="label"/></td>
           <td><input type="text" class="form-control input-sm" ng-model="rule.user" placeholder="*" title="{{ 'TOOLTIP_AccountName' | translate }}"/></td>
           <td>
-            <select ng-options="region.value as region.label for region in regions" class="form-control input-sm" ng-model="rule.region">
-            </select>
+            <select ng-options="region.value as region.label for region in regions" class="form-control input-sm" ng-model="rule.region"></select>
           </td>
           <td>
             <input colorpicker="hex" type="text" ng-model="rule.color" class="form-control input-sm color_picker" ng-style="{background:rule.color}" />
@@ -100,21 +97,6 @@
         </tr>
       </tbody>
     </table>
-
-    <div class="pull-right">
-      <div class="panel panel-primary" style="width: 25em; position:fixed; bottom:0.5em; right:2em; margin-bottom:0;">
-        <div class="panel-heading" style="font-weight: 700; padding: 0.2em 5px;">Preview</div>
-        <div class="panel-body" style="background-color: #f2f3f3; padding:0.5em;">
-          <div id="prev-navbar" ng-style="{ 'background-color': previewRule.color }" style="position: relative; color: white; line-height: 40px; text-shadow: 0 1px 0 #000;">
-            <div id="previewLabel" ng-if="previewRule.showLabel && previewRule.label != null && previewRule.label.length">{{ previewRule.label }}</div>
-            <div id="nav-logo"></div>
-            <div style="font-size: 15px; font-weight: bold;">Services&nbsp;
-              <span style="font-size: 10px;" class="glyphicon glyphicon-menu-down"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
 </body>

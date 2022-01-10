@@ -1,5 +1,11 @@
 # aws-console-customize-extension
+
+![Chrome Web Store](https://img.shields.io/chrome-web-store/v/cjpikjjajakahcpglopbmobcoiibcpcd.svg)
+
 customize aws console chrome-extension
+
+- Ver 1.0.2
+  - added support for account number.
 
 - Ver 1.0.1
   - change header area detection.

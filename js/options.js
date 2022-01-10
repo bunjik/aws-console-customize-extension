@@ -1,6 +1,6 @@
 var app = angular.module('awsConsoleModApp', ['ui.bootstrap', 'ui.sortable', 'colorpicker.module']);
 
-//directive
+// directive
 app.directive('fileModel',function($parse){
     return{
         restrict: 'A',
@@ -18,7 +18,10 @@ app.directive('fileModel',function($parse){
 // translate filter
 app.filter('translate', function() {
     return function(key) {
-        var res = chrome.i18n.getMessage(key.replace(/-/g, '_'));
+        var res = key;
+        if (agent.indexOf("chrome") != -1) {
+            res = chrome.i18n.getMessage(key.replace(/-/g, '_'));
+        }
         return res != '' ? res : key;
     }
 });
@@ -67,24 +70,20 @@ app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
     $scope.previewRule = defaultRule;
 
     $scope.ruleList = [];
-
-    //$scope.orgRulelist = [];
-    //$scope.prevIdx = -99;
+    $scope.orgRuleList = [];
 
     $scope.loadSetting = function() {
-        //console.log("loadSetting...");
-
-        chrome.storage.sync.get(['awsconsole'], function(result) {
-           $scope.ruleList = result.awsconsole || [];
-           if ($scope.ruleList.length == 0) {
-                $scope.ruleList.push(angular.copy(defaultRule));
-           }
-           //$scope.orgRulelist = angular.copy($scope.ruleList);
-           $scope.$applyAsync();
+        getStorage().then(result => {
+            $scope.ruleList = result.awsconsole || [];
+            if ($scope.ruleList.length == 0) {
+                 $scope.ruleList.push(angular.copy(defaultRule));
+            }
+            $scope.orgRulelist = angular.copy($scope.ruleList);
+            $scope.$applyAsync();
         });
     }
 
-    // check modified rule
+    // check modified rule.
     $scope.checkModified = function() { 
     }
 
@@ -116,8 +115,7 @@ app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
 
     // save rule.
     $scope.apply = function() {
-        chrome.storage.sync.set({ awsconsole: angular.copy($scope.ruleList) }, function() {
-        });
+        setStorage(angular.copy($scope.ruleList)).then(() => console.log("saved"));
     }
 
     // export rule.
@@ -160,11 +158,6 @@ app.controller('appCtrl', ['$scope', '$filter', function ($scope, $filter) {
         } else {
             $scope.previewRule = defaultRule;
         }
-        // check modified
-        //if (idx != $scope.prevIdx) {
-        //    console.log("check modify. [" + idx + "]");
-        //    $scope.prevIdx = idx;
-        //}
     }
     
     $scope.sortableOptions = {

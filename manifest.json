@@ -2,16 +2,21 @@
   "manifest_version": 2,
   "name": "__MSG_ext_name__",
   "description": "__MSG_ext_description__",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "default_locale": "en",
   "content_scripts": [
     {
+      "run_at":"document_end",
       "matches": ["https://*.console.aws.amazon.com/*"],
       "js": ["js/jquery.min.js", "extension.js"],
       "css": ["css/extension.css"]
     }
   ],
-  "options_page": "options.html",
+  "options_ui": {
+    "browser_style": true,
+    "open_in_tab": true,
+    "page": "options.html"
+  },
   "permissions": [
     "storage"
   ],
