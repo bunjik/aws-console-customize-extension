@@ -4,6 +4,9 @@
 
 customize aws console chrome-extension
 
+- Ver 1.0.3
+  - fix show label bug.
+
 - Ver 1.0.2
   - added support for account number.
 
@@ -20,7 +23,7 @@ customize aws console chrome-extension
     - angularjs 1.8.2
 
 - Ver 0.3
-  - support AWS Management Console update.
+  - support AWS Management Console update.  
     [Usability Improvements for AWS Management Console now available][1]
   - applying region changes.
 

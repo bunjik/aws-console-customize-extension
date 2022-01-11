@@ -8,6 +8,21 @@ body.extension {
     max-height: 100vh;
 }
 
+#ruleLabel {
+    position: fixed;
+    top:  6px;
+    left: 4px;
+    background-color: white;
+    color:black;
+    opacity:0.8;
+    font-size:15px;
+    padding: 4px 10px;
+    z-index: 9999;
+    font-weight:700;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
 #previewLabel {
     position: absolute;
     top:  4px;
