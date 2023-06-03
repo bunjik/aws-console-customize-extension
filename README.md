@@ -4,6 +4,10 @@
 
 customize aws console chrome-extension
 
+- Ver 1.0.4
+  - support AWS Management Console update.
+  - applying region changes.
+
 - Ver 1.0.3
   - fix show label bug.
 

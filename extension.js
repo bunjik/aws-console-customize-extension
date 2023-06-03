@@ -5,6 +5,9 @@
 const agent = window.navigator.userAgent.toLowerCase();
 const SETTING_KEY = 'awsconsole';
 
+var intervalId;
+var retryLimit = 60
+
 function getStorage() {
   if (agent.indexOf("chrome") != -1) {
     // chrome extension
@@ -23,6 +26,7 @@ function getStorage() {
   }
 }
 
+
 function applyRule(rule) {
   // header
   $('header > nav').css('background-color', rule.color);
@@ -38,39 +42,52 @@ function applyRule(rule) {
 }
 
 
-$(function() {
-  // get username, accountId, region
+function findAccount() {
   var name = $("span[data-testid='awsc-nav-account-menu-button'] span:first").text();
   var acct = $("div[data-testid='account-detail-menu'] span:nth-child(2)").text();
-  acct = acct.replaceAll('-', '');
-  //console.log(name, accountId);
+  if (name != '') {
+    //console.log(name, acct);
+    acct = acct.replaceAll('-', '');
+    clearInterval(intervalId);
 
-  var regions = location.search.match(/region=(.*?)(&|$)/);
-  var region = "";
-  if (regions != null && regions.length > 1) {
-    region = regions[1];
+    var regions = location.search.match(/region=(.*?)(&|$)/);
+    var region = "";
+    if (regions != null && regions.length > 1) {
+      region = regions[1];
+    }
+  
+    // load setting.
+    getStorage().then(ruleList => {
+
+      ruleList[SETTING_KEY].some(rule => { 
+        var re = new RegExp(rule.user);
+        if (rule.enableRule && (re.test(name) || re.test(acct))) {
+          if (region == rule.region || "all-region" == rule.region) {
+            // apply rule.
+            applyRule(rule);
+            return true;
+          }
+        }
+      });
+    }, 
+    err => {
+      console.error(err);
+    });
+  }
+  if (--retryLimit <= 0) {
+    clearInterval(intervalId);
   }
 
+}
+
+// main function
+$(function() {
   // show/hide label
   $('#consoleNavHeader').hover( 
-      () => $('#ruleLabel').css('visibility', 'hidden'),
-      () => $('#ruleLabel').css('visibility', '')
+    () => $('#ruleLabel').css('visibility', 'hidden'),
+    () => $('#ruleLabel').css('visibility', '')
   );
-
-  // load setting.
-  getStorage().then(ruleList => {
-    ruleList[SETTING_KEY].some(rule => { 
-      var re = new RegExp(rule.user);
-      if (rule.enableRule && (re.test(name) || re.test(acct))) {
-        if (region == rule.region || "all-region" == rule.region) {
-          // apply rule.
-          applyRule(rule);
-          return true;
-        }
-      }
-    });
-  }, 
-  err => {
-    console.error(err);
-  });
+  
+  // waiting loading.
+  intervalId = setInterval(findAccount, 1000);
 });
