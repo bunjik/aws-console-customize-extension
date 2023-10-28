@@ -5,9 +5,6 @@
 const agent = window.navigator.userAgent.toLowerCase();
 const SETTING_KEY = "awsconsole";
 
-var intervalId;
-var retryLimit = 60;
-
 function getStorage() {
   if (agent.indexOf("chrome") != -1) {
     // chrome extension
@@ -40,56 +37,41 @@ function applyRule(rule) {
   }
 }
 
+
 function findAccount() {
-  var name = $(
-    "span[data-testid='awsc-nav-account-menu-button'] span:first"
-  ).text();
-  if (name != "") {
-    // console.log(name, acct);
-    clearInterval(intervalId);
-
-    // Need to wait for element to be rendered to account for possible racing condition
-    // that would prevent header from showing.
-    waitForElementToExist(
-      "div[data-testid='account-detail-menu'] span:nth-child(2)"
-    ).then((element) => {
-      var acct = element.innerText.replaceAll("-", "");
-
+  // Need to wait for element to be rendered to account for possible racing condition
+  // that would prevent header from showing.
+  waitForElementToExist("div[data-testid='account-detail-menu'] span:nth-child(2)")
+    .then(element => {
+      account = element.innerText.replaceAll('-', '');
+      var name = $("span[data-testid='awsc-nav-account-menu-button'] span:first").innerText;
       var regions = location.search.match(/region=(.*?)(&|$)/);
-      var region = "";
-      if (regions != null && regions.length > 1) {
-        region = regions[1];
-      }
-
+      var region = (regions != null && regions.length > 1) ? regions[1] : "";
+    
       // load setting.
-      getStorage().then(
-        (ruleList) => {
-          ruleList[SETTING_KEY].some((rule) => {
-            var re = new RegExp(rule.user);
-            if (rule.enableRule && (re.test(name) || re.test(acct))) {
-              if (region == rule.region || "all-region" == rule.region) {
-                // apply rule.
-                applyRule(rule);
-                return true;
-              }
+      getStorage().then(ruleList => {
+        ruleList[SETTING_KEY].some(rule => { 
+          var re = new RegExp(rule.user);
+          if (rule.enableRule && (re.test(name) || re.test(acct))) {
+            if (region == rule.region || "all-region" == rule.region) {
+              // apply rule.
+              applyRule(rule);
+              return true;
             }
-          });
-        },
-        (err) => {
-          console.error(err);
-        }
-      );
-    });
-  }
-  if (--retryLimit <= 0) {
-    clearInterval(intervalId);
-  }
+          }
+        });
+      }, 
+      err => {
+        console.error(err);
+      });
+    })
 }
+
 
 function waitForElementToExist(selector) {
   return new Promise((resolve) => {
     if (document.querySelector(selector)) {
-      return document.querySelector(selector);
+      resolve(document.querySelector(selector));
     }
 
     const observer = new MutationObserver(() => {
@@ -114,6 +96,6 @@ $(function () {
     () => $("#ruleLabel").css("visibility", "")
   );
 
-  // waiting loading.
-  intervalId = setInterval(findAccount, 1000);
+  // check accont.
+  findAccount();
 });
