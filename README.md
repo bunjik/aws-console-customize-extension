@@ -4,7 +4,7 @@
 
 customize aws console chrome-extension
 
-- Ver 1.0.5
+- Ver 1.0.6
   - wait for account info to be rendered for possible racing condition.
 
 - Ver 1.0.4

@@ -54,7 +54,7 @@ function findAccount() {
     getStorage().then(ruleList => {
       ruleList[SETTING_KEY].some(rule => { 
         var re = new RegExp(rule.user);
-        if (rule.enableRule && (re.test(name) || re.test(acct))) {
+        if (rule.enableRule && (re.test(name) || re.test(account))) {
           if (region == rule.region || "all-region" == rule.region) {
             // apply rule.
             applyRule(rule);
