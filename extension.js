@@ -41,30 +41,32 @@ function applyRule(rule) {
 function findAccount() {
   // Need to wait for element to be rendered to account for possible racing condition
   // that would prevent header from showing.
-  waitForElementToExist("div[data-testid='account-detail-menu'] span:nth-child(2)")
-    .then(element => {
-      account = element.innerText.replaceAll('-', '');
-      var name = $("span[data-testid='awsc-nav-account-menu-button'] span:first").innerText;
-      var regions = location.search.match(/region=(.*?)(&|$)/);
-      var region = (regions != null && regions.length > 1) ? regions[1] : "";
-    
-      // load setting.
-      getStorage().then(ruleList => {
-        ruleList[SETTING_KEY].some(rule => { 
-          var re = new RegExp(rule.user);
-          if (rule.enableRule && (re.test(name) || re.test(acct))) {
-            if (region == rule.region || "all-region" == rule.region) {
-              // apply rule.
-              applyRule(rule);
-              return true;
-            }
+  var p1 = waitForElementToExist("span[data-testid='awsc-nav-account-menu-button'] span:first-child");
+  var p2 = waitForElementToExist("div[data-testid='account-detail-menu'] span:nth-child(2)");
+  Promise.all([p1, p2]).then(elements => {
+    const name = elements[0].innerText;
+    const account = elements[1].innerText.replaceAll('-', '');
+    const regions = location.search.match(/region=(.*?)(&|$)/);
+    const region = (regions != null && regions.length > 1) ? regions[1] : "";
+    //console.log(name, account, region);
+
+    // load setting.
+    getStorage().then(ruleList => {
+      ruleList[SETTING_KEY].some(rule => { 
+        var re = new RegExp(rule.user);
+        if (rule.enableRule && (re.test(name) || re.test(acct))) {
+          if (region == rule.region || "all-region" == rule.region) {
+            // apply rule.
+            applyRule(rule);
+            return true;
           }
-        });
-      }, 
-      err => {
-        console.error(err);
+        }
       });
-    })
+    }, 
+    err => {
+      console.error(err);
+    });
+  });
 }
 
 
