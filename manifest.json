@@ -7,7 +7,7 @@
   "content_scripts": [
     {
       "run_at":"document_end",
-      "matches": ["https://*.console.aws.amazon.com/*"],
+      "matches": ["https://*.console.aws.amazon.com/*", "https://*.console.amazonaws-us-gov.com/*"],
       "js": ["js/jquery.min.js", "extension.js"],
       "css": ["css/extension.css"]
     }
