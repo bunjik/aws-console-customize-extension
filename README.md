@@ -4,6 +4,10 @@
 
 customize aws console chrome-extension
 
+- Ver 1.0.8
+
+  - support AWS Management Console update.
+
 - Ver 1.0.7
 
   - add support for US GovCloud console.

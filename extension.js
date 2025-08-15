@@ -25,11 +25,15 @@ function getStorage() {
 
 function applyRule(rule) {
   // header
-  $("header > nav").css("background-color", rule.color);
-  $(".globalNav-0366 > a").css("background-color", rule.color);
+  waitForElementToExist("header > nav").then(elem => {
+    $("header > nav").css("background-color", rule.color);
+    $(".globalNav-0366 > a").css("background-color", rule.color);
+  });
 
   // footer
-  $("#console-nav-footer-inner").css("background-color", rule.color);
+  waitForElementToExist("#console-nav-footer-inner").then(elem => {
+    $("#console-nav-footer-inner").css("background-color", rule.color);
+  });
 
   // label
   if (rule.showLabel && rule.label != null && rule.label.length > 0) {
@@ -41,14 +45,11 @@ function applyRule(rule) {
 function findAccount() {
   // Need to wait for element to be rendered to account for possible racing condition
   // that would prevent header from showing.
-  var p1 = waitForElementToExist("span[data-testid='awsc-nav-account-menu-button'] span:first-child");
-  var p2 = waitForElementToExist("div[data-testid='account-detail-menu'] span:nth-child(2)");
-  Promise.all([p1, p2]).then(elements => {
-    const name = elements[0].innerText;
-    const account = elements[1].innerText.replaceAll('-', '');
-    const regions = location.search.match(/region=(.*?)(&|$)/);
-    const region = (regions != null && regions.length > 1) ? regions[1] : "";
-    //console.log(name, account, region);
+  waitForElementToExist("meta[name='awsc-session-data']").then(elem => {
+    session_data = JSON.parse(elem.content)
+    const name = decodeURI(session_data.displayName)
+    const account = session_data.accountId
+    const region = session_data.infrastructureRegion;
 
     // load setting.
     getStorage().then(ruleList => {

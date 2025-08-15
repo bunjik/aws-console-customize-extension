@@ -4,7 +4,7 @@
 
     "RuleList": { "message": "Rule List" },
     "Label": { "message": "Label" },
-    "AccountName": { "message": "AccountName" },
+    "AccountName": { "message": "AccountName/ID" },
     "Region": { "message": "Region" },
     "HeaderColor": { "message": "Header Color" },
     "Operations": { "message": "Operations" },
