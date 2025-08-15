@@ -49,13 +49,14 @@ function findAccount() {
     session_data = JSON.parse(elem.content)
     const name = decodeURI(session_data.displayName)
     const account = session_data.accountId
+    const accountAlias = session_data.accountAlias
     const region = session_data.infrastructureRegion;
 
     // load setting.
     getStorage().then(ruleList => {
       ruleList[SETTING_KEY].some(rule => { 
         var re = new RegExp(rule.user);
-        if (rule.enableRule && (re.test(name) || re.test(account))) {
+        if (rule.enableRule && (re.test(name) || re.test(account) || re.test(accountAlias))) {
           if (region == rule.region || "all-region" == rule.region) {
             // apply rule.
             applyRule(rule);

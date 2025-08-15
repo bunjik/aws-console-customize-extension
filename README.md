@@ -4,6 +4,10 @@
 
 customize aws console chrome-extension
 
+- Ver 1.0.9
+
+  - bugfix: account alias support.
+
 - Ver 1.0.8
 
   - support AWS Management Console update.
